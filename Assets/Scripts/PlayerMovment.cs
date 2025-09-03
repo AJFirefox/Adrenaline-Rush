@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovment : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     // This is a reference to the Rigodbody component called "rb"
     public Rigidbody rb;
@@ -21,12 +21,12 @@ public class PlayerMovment : MonoBehaviour
 
         if ( Input.GetKey("d") )
         {
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0);
+            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
         
         if ( Input.GetKey("a") )
         {
-            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0);
+            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
 
         if (Input.GetKey("s"))
