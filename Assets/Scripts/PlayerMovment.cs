@@ -33,6 +33,12 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(0, 0, backwardForce * Time.deltaTime);
         }
+
+        if (rb.position.y < -1f)
+        {
+            Object.FindFirstObjectByType<GameManager>().EndGame();
+        }
+
     }
 }
   
