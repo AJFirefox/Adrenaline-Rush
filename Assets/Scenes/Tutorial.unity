@@ -22607,7 +22607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -23967,6 +23967,7 @@ GameObject:
   - component: {fileID: 745788265}
   - component: {fileID: 745788264}
   - component: {fileID: 745788266}
+  - component: {fileID: 745788267}
   m_Layer: 5
   m_Name: LevelComplete
   m_TagString: Untagged
@@ -24055,6 +24056,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &745788267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745788262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c256d7aecc5244f99d282d003da984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &787369553 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8744404966760510767, guid: 2d28cb1265e39d9438f01973c754111e, type: 3}
