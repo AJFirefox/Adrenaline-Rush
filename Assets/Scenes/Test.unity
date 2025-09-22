@@ -2044,7 +2044,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: -1, z: 0}
---- !u!114 &1571434920
+--- !u!114 &1571434923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2053,13 +2053,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1571434907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ddaffb667eb0ce438f5c9d35b7d8a01, type: 3}
+  m_Script: {fileID: 11500000, guid: 87338605efd626049bab6730eb685c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 12
+  jumpSpeed: 12
+  gravity: 20
   mouseSensitivity: 300
-  gravityValue: -3
-  jumpHeight: 12
 --- !u!1 &1793570415
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,7 +2649,7 @@ PrefabInstance:
       addedObject: {fileID: 1571434916}
     - targetCorrespondingSourceObject: {fileID: 2604018238491963300, guid: 5afc7ee3b1f2b894a83b58b06b356218, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1571434920}
+      addedObject: {fileID: 1571434923}
   m_SourcePrefab: {fileID: 100100000, guid: 5afc7ee3b1f2b894a83b58b06b356218, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
