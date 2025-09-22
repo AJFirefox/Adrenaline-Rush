@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        //groundedPlayer = Controller.isGrounded;
+        groundedPlayer = Controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
             playerVelocity.y = 2F; // Reset vertical velocity when grounded
