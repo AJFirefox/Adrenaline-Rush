@@ -4,18 +4,21 @@ public class PlayerMovementTest : MonoBehaviour
 {
     public float moveSpeed = 12f;
     public float jumpSpeed = 12f;
-    public float gravity = 20f;
+    public float gravity = 40f;
     public float mouseSensitivity = 100f;
+    public float fallMultiplier = 2.5f;
 
     private CharacterController controller;
     private Vector3 moveDirection;
     private float verticalVelocity;
 
     private float xRotation = 0f;
+    private Camera playerCamera;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        playerCamera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked; // Lock cursor to center of screen
     }
 
@@ -28,8 +31,8 @@ public class PlayerMovementTest : MonoBehaviour
     private void HandleMovement()
     {
         // Handle horizontal movement
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = (transform.forward * verticalInput + transform.right * horizontalInput).normalized;
         moveDirection = movement * moveSpeed;
@@ -37,15 +40,15 @@ public class PlayerMovementTest : MonoBehaviour
         // Apply gravity (account for grounded state)
         if (controller.isGrounded)
         {
-            verticalVelocity = -gravity * Time.deltaTime; // Small downward force when grounded
+            verticalVelocity = -2f; // small constant downward force to stay grounded
             if (Input.GetButtonDown("Jump"))
             {
-                verticalVelocity = jumpSpeed; // Apply jump velocity when pressing jump button
+                verticalVelocity = jumpSpeed;
             }
         }
         else
         {
-            verticalVelocity -= gravity * Time.deltaTime; // Apply gravity when airborne
+            verticalVelocity -= gravity * Time.deltaTime; // gravity applied once per frame
         }
 
         // Apply vertical velocity (for jumping/falling)
@@ -58,8 +61,11 @@ public class PlayerMovementTest : MonoBehaviour
     private void HandleMouseLook()
     {
         // Get mouse movement
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+       // float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        //float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         // Handle vertical camera look
         xRotation -= mouseY;
