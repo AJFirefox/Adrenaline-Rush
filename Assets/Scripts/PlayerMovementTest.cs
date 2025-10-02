@@ -37,7 +37,10 @@ public class PlayerMovementTest : MonoBehaviour
     private bool isWallRunning = false;
     private bool isWallRight = false;
     private bool isWallLeft = false;
+    private float wallJumpedTimer = 0.3f;
     private float wallRunTimer = 0f;
+
+    private Vector3 wallNormal; // <-- outward normal of wall
 
     // --------------------------------------------------
 
@@ -45,7 +48,7 @@ public class PlayerMovementTest : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerCamera = Camera.main;
-
+        wallJumpedTimer = 0f;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -84,7 +87,7 @@ public class PlayerMovementTest : MonoBehaviour
         // Ground check & jump
         if (controller.isGrounded)
         {
-            verticalVelocity = -2f; // small downward force to keep grounded
+            verticalVelocity = -2f; // keep grounded
             if (Input.GetButtonDown("Jump"))
             {
                 verticalVelocity = jumpSpeed;
@@ -104,7 +107,7 @@ public class PlayerMovementTest : MonoBehaviour
     // WALL RUN
     private void HandleWallRun()
     {
-        if (CanWallRun() && (isWallLeft || isWallRight))
+        if (CanWallRun() && (isWallLeft || isWallRight)&& wallJumpedTimer <= 0f)
         {
             if (!isWallRunning)
             {
@@ -119,7 +122,7 @@ public class PlayerMovementTest : MonoBehaviour
                 return;
             }
 
-            // Apply reduced gravity
+            // Reduced gravity while wall running
             verticalVelocity = -wallRunGravity;
 
             // Forward momentum
@@ -130,32 +133,61 @@ public class PlayerMovementTest : MonoBehaviour
             // Wall jump
             if (Input.GetButtonDown("Jump"))
             {
-                Vector3 wallJumpDir = transform.up + (isWallRight ? -transform.right : transform.right);
-                moveDirection = wallJumpDir * wallJumpForce + transform.forward * wallRunSpeed;
-                verticalVelocity = wallJumpForce;
+              
+                // Outward + upward direction
+                Vector3 outwardJump = (wallNormal +  Vector3.up).normalized;
+
+                // Blend outward with forward velocity (keeps Apex/Titanfall feel)
+                Vector3 jumpDir = outwardJump * wallJumpForce + transform.forward * (wallRunSpeed * 0.75f);
+                
+
+                //moveDirection = jumpDir;
+                //verticalVelocity = wallJumpForce;
+                jumpDir.y = 2;
+                Debug.Log(jumpDir);
+                jumpDir.z = 5f;
+                controller.Move(jumpDir);
+                wallJumpedTimer = 0.8f;
                 isWallRunning = false;
             }
         }
         else
         {
+            wallJumpedTimer -= Time.deltaTime;
             isWallRunning = false;
         }
     }
 
     private bool CanWallRun()
     {
-        // Not grounded + moving upward enough
         if (controller.isGrounded) return false;
         if (Input.GetAxisRaw("Vertical") <= 0) return false;
 
-        // Ensure player is at least above a "jump height" above ground
+        // Ensure player is above minimum jump height from ground
         return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight);
     }
 
     private void CheckForWall()
     {
-        isWallRight = Physics.Raycast(transform.position, transform.right, wallCheckDistance, wallMask);
-        isWallLeft = Physics.Raycast(transform.position, -transform.right, wallCheckDistance, wallMask);
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.right, out hit, wallCheckDistance, wallMask))
+        {
+            isWallRight = true;
+            isWallLeft = false;
+            wallNormal = hit.normal; // save wall normal
+        }
+        else if (Physics.Raycast(transform.position, -transform.right, out hit, wallCheckDistance, wallMask))
+        {
+            isWallLeft = true;
+            isWallRight = false;
+            wallNormal = hit.normal; // save wall normal
+        }
+        else
+        {
+            isWallRight = false;
+            isWallLeft = false;
+        }
     }
 
     // --------------------------------------------------
@@ -169,7 +201,7 @@ public class PlayerMovementTest : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // Apply camera pitch + tilt
+        // Apply pitch + tilt
         playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, currentTilt);
 
         // Yaw
@@ -189,7 +221,5 @@ public class PlayerMovementTest : MonoBehaviour
         {
             currentTilt = Mathf.Lerp(currentTilt, 0f, Time.deltaTime * 5f);
         }
-
-        // Final tilt applied in HandleMouseLook
     }
 }

@@ -2742,9 +2742,9 @@ MonoBehaviour:
   jumpSpeed: 15
   gravity: 40
   fallMultiplier: 2.5
-  wallRunSpeed: 25
+  wallRunSpeed: 18
   wallRunGravity: 1.5
-  wallJumpForce: 100
+  wallJumpForce: 25
   wallCheckDistance: 2
   maxWallRunTime: 3
   wallMask:
