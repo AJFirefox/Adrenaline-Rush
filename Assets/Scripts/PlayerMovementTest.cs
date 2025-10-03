@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovementTest : MonoBehaviour
@@ -134,20 +135,9 @@ public class PlayerMovementTest : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
               
-                // Outward + upward direction
-                Vector3 outwardJump = (wallNormal +  Vector3.up).normalized;
-
-                // Blend outward with forward velocity (keeps Apex/Titanfall feel)
-                Vector3 jumpDir = outwardJump * wallJumpForce + transform.forward * (wallRunSpeed * 0.75f);
                 
-
-                //moveDirection = jumpDir;
-                //verticalVelocity = wallJumpForce;
-                jumpDir.y = 2;
-                Debug.Log(jumpDir);
-                jumpDir.z = 5f;
-                controller.Move(jumpDir);
                 wallJumpedTimer = 0.8f;
+                StartCoroutine(WallJump());
                 isWallRunning = false;
             }
         }
@@ -156,6 +146,28 @@ public class PlayerMovementTest : MonoBehaviour
             wallJumpedTimer -= Time.deltaTime;
             isWallRunning = false;
         }
+    }
+
+    IEnumerator WallJump()
+    {
+        // Outward + upward direction
+        Vector3 outwardJump = (wallNormal + Vector3.up).normalized;
+
+        // Blend outward with forward velocity (keeps Apex/Titanfall feel)
+        Vector3 jumpDir = outwardJump * wallJumpForce + transform.forward * (wallRunSpeed * 0.75f);
+
+
+        //moveDirection = jumpDir;
+        //verticalVelocity = wallJumpForce;
+        jumpDir.y = .2f;
+        Debug.Log(jumpDir);
+        jumpDir.z = Mathf.Clamp(jumpDir.z, -.2f, .2f);
+        while (wallJumpedTimer >= 0f)
+        {
+            controller.Move(jumpDir);
+            yield return null;
+        }
+       
     }
 
     private bool CanWallRun()
