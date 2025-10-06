@@ -154,7 +154,7 @@ public class PlayerMovementTest : MonoBehaviour
         Vector3 outwardJump = (wallNormal + Vector3.up).normalized;
 
         // Blend outward with forward velocity (keeps Apex/Titanfall feel)
-        Vector3 jumpDir = outwardJump * wallJumpForce + transform.forward * (wallRunSpeed * 0.75f);
+        Vector3 jumpDir = outwardJump * wallJumpForce + transform.forward * wallRunSpeed * 0.75f;
 
 
         //moveDirection = jumpDir;
