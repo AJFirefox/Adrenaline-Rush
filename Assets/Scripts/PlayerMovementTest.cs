@@ -160,11 +160,12 @@ public class PlayerMovementTest : MonoBehaviour
         //moveDirection = jumpDir;
         //verticalVelocity = wallJumpForce;
         jumpDir.y = .2f;
-        Debug.Log(jumpDir);
+        
         jumpDir.z = Mathf.Clamp(jumpDir.z, -.2f, .2f);
+        Debug.Log(jumpDir);
         while (wallJumpedTimer >= 0f)
         {
-            controller.Move(jumpDir);
+            controller.Move(jumpDir * Time.deltaTime);
             yield return null;
         }
        

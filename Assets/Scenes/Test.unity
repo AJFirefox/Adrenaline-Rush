@@ -2810,7 +2810,7 @@ MonoBehaviour:
   fallMultiplier: 2.5
   wallRunSpeed: 18
   wallRunGravity: 1.5
-  wallJumpForce: 1
+  wallJumpForce: 0.1
   wallCheckDistance: 1.5
   maxWallRunTime: 3
   wallMask:
