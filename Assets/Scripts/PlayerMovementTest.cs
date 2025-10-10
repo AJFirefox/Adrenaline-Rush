@@ -108,7 +108,7 @@ public class PlayerMovementTest : MonoBehaviour
     // WALL RUN
     private void HandleWallRun()
     {
-        if (CanWallRun() && (isWallLeft || isWallRight)&& wallJumpedTimer <= 0f)
+        if (CanWallRun() && (isWallLeft || isWallRight) && wallJumpedTimer <= 0f)
         {
             if (!isWallRunning)
             {
@@ -133,9 +133,7 @@ public class PlayerMovementTest : MonoBehaviour
 
             // Wall jump
             if (Input.GetButtonDown("Jump"))
-            {
-              
-                
+            { 
                 wallJumpedTimer = 0.8f;
                 StartCoroutine(WallJump());
                 isWallRunning = false;
@@ -148,7 +146,7 @@ public class PlayerMovementTest : MonoBehaviour
         }
     }
 
-    IEnumerator WallJump()
+    private IEnumerator WallJump()
     {
         // Outward + upward direction
         Vector3 outwardJump = (wallNormal + Vector3.up).normalized;
@@ -159,9 +157,10 @@ public class PlayerMovementTest : MonoBehaviour
 
         //moveDirection = jumpDir;
         //verticalVelocity = wallJumpForce;
-        jumpDir.y = .2f;
+        jumpDir.y = 2f;
         jumpDir.z = Mathf.Clamp(jumpDir.z, -.2f, .2f);
         Debug.Log(jumpDir);
+
         while (wallJumpedTimer >= 0f)
         {
             controller.Move(jumpDir * Time.deltaTime);
