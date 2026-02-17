@@ -17,17 +17,17 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.078431375, g: 0, b: 0.11764706, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.02
+  m_FogDensity: 0.014
   m_LinearFogStart: 10
   m_LinearFogEnd: 200.01
-  m_AmbientSkyColor: {r: 1.7751163, g: 1.1292257, b: 2.1185474, a: 1}
-  m_AmbientEquatorColor: {r: 0.5882353, g: 0.19607843, b: 0.9411765, a: 1}
-  m_AmbientGroundColor: {r: 0.078431375, g: 0, b: 0.19607843, a: 1}
+  m_AmbientSkyColor: {r: 1.7764417, g: 1.1091871, b: 2.1074555, a: 1}
+  m_AmbientEquatorColor: {r: 1.6637807, g: 0.55459356, b: 2.662049, a: 1}
+  m_AmbientGroundColor: {r: 0.22352941, g: 0, b: 0.5529412, a: 1}
   m_AmbientIntensity: 2.2
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.53813636, g: 0.6181226, b: 0.8207547, a: 1}
   m_SkyboxMaterial: {fileID: -876546973899608171, guid: 826bdbac23ec3064290838c236752c7d, type: 3}
-  m_HaloStrength: 0.385
+  m_HaloStrength: 0.483
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -395,6 +395,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &176532139
 MeshFilter:
@@ -583,14 +584,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375876514}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1

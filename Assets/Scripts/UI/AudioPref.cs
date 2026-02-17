@@ -23,5 +23,6 @@ public class AudioPref : MonoBehaviour
     public void SetVolume(float newVolume)
     {
         PlayerPrefs.SetFloat(sliderName, newVolume);
+        AudioManager.instance.masterMixer.SetFloat (sliderName + "Volume", newVolume);
     }
 }
